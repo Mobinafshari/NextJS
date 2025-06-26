@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+
 import useGetTodos from "./_hooks/useGetTodos";
 
 function Page() {
