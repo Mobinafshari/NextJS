@@ -7,6 +7,7 @@ function page() {
       <Link href="/products">Wanna see the Products?</Link>
       <Link href="/comments">Wanna see the comments?</Link>
       <Link href="/todos">Wanna see the todos?</Link>
+      <Link href="/ip">IP checker</Link>
     </div>
   );
 }
