@@ -5,8 +5,12 @@ import Loading from "../loading";
 
 function page() {
   const comments = fetch("https://jsonplaceholder.typicode.com/comments").then(
-    (res) => res.json()
+    async (res) => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      return res.json();
+    }
   );
+
   return (
     <div className="flex flex-col gap-4">
       <h2>This is Comment Page</h2>

@@ -9,7 +9,7 @@ type PostType = {
 
 async function page() {
   const data = await fetch("https://jsonplaceholder.typicode.com/posts", {
-    cache: "force-cache",
+    next: { revalidate: 60 },
   });
   const posts: PostType[] = await data.json();
   return (
