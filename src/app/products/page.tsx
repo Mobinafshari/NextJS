@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import React from "react";
 type PostType = {
   userId: number;
@@ -8,6 +9,7 @@ type PostType = {
 };
 
 async function page() {
+  await connection();
   const data = await fetch("https://jsonplaceholder.typicode.com/posts", {
     next: { revalidate: 60 },
   });

@@ -1,4 +1,5 @@
 import React, { use } from "react";
+
 type CommentType = {
   postId: number;
   id: number;
@@ -6,14 +7,18 @@ type CommentType = {
   email: string;
   body: string;
 };
-type Props = {
-  comments: Promise<CommentType[]>;
-};
-function Comments({ comments }: Props) {
-  const allComments = use(comments);
+
+function Comments() {
+  const comments = use(
+    fetch("https://jsonplaceholder.typicode.com/comments").then(async (res) => {
+      await new Promise((r) => setTimeout(r, 3000));
+      return res.json();
+    })
+  );
+
   return (
     <ul>
-      {allComments.map((comment) => (
+      {comments.map((comment: CommentType) => (
         <li key={comment.id}>{comment.email}</li>
       ))}
     </ul>
