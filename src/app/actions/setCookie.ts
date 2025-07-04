@@ -8,5 +8,6 @@ export const setCookie = async (userId: string) => {
     name: "userId",
     value: userId,
     httpOnly: true,
+    maxAge: 60 * 60 * 24 * 7,
   });
 };
