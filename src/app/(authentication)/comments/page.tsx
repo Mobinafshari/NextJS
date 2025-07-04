@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import Comments from "./_components/Comments";
-import Loading from "../loading";
+import Loading from "../../loading";
 
 function page() {
   return (
