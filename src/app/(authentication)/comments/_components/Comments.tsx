@@ -1,3 +1,6 @@
+import Loading from "@/app/loading";
+import { cookies } from "next/headers";
+
 type CommentType = {
   postId: number;
   id: number;
@@ -6,8 +9,14 @@ type CommentType = {
   body: string;
 };
 export default async function Comments() {
+  const cookieStore = await cookies();
+  const userId = cookieStore.get("userId")?.value;
+  if (!userId) return <Loading />;
   const res = await fetch("https://jsonplaceholder.typicode.com/comments", {
-    next: { revalidate: 0 },
+    cache: "no-store",
+    headers: {
+      userId,
+    },
   });
 
   await new Promise((r) => setTimeout(r, 3000));
