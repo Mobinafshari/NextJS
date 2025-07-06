@@ -16,8 +16,10 @@ async function page() {
   });
   const posts: PostType[] = await data.json();
   return (
-    <div className="flex flex-col ga-4">
-      <Link href="/comments">Go To Comments Page</Link>
+    <div className="flex flex-col gap-4">
+      <Link href="/comments" className="h-dvh mb-10">
+        Go To Comments Page
+      </Link>
       <PostPreview posts={posts} />
     </div>
   );
