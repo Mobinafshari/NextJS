@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import Comments from "./_components/Comments";
 import Loading from "../../loading";
 
-async function page() {
+function page() {
   return (
     <div className="flex flex-col gap-4">
       <h2>This is Comment Page</h2>
