@@ -19,7 +19,7 @@ export default async function Comments() {
       "Content-Type": "application/json",
     },
   });
-
+  console.log("====>", res);
   await new Promise((r) => setTimeout(r, 3000));
 
   const data = await res.json();
