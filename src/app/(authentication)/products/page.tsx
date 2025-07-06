@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import React from "react";
-type PostType = {
+import PostPreview from "./_components/PostPreview";
+export type PostType = {
   userId: number;
   id: number;
   title: string;
@@ -15,12 +16,10 @@ async function page() {
   });
   const posts: PostType[] = await data.json();
   return (
-    <ul>
+    <div className="flex flex-col ga-4">
       <Link href="/comments">Go To Comments Page</Link>
-      {posts.map((post) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
+      <PostPreview posts={posts} />
+    </div>
   );
 }
 
