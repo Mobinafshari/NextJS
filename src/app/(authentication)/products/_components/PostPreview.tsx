@@ -23,7 +23,7 @@ function PostPreview({ posts }: Props) {
         }
       },
       {
-        root: lastPostRef.current,
+        root: null,
         threshold: 1.0,
         rootMargin: "0px",
       }
