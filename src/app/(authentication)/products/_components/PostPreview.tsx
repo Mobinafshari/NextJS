@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PostType } from "../page";
 import { useRouter } from "nextjs-toploader/app";
 import clsx from "clsx";
@@ -11,6 +11,7 @@ type Props = {
 
 function PostPreview({ posts }: Props) {
   const lastPostRef = useRef<HTMLLIElement | null>(null);
+  const [visibleCount, setVisibleCount] = useState(10);
 
   useEffect(() => {
     if (!lastPostRef.current) return;
@@ -39,7 +40,7 @@ function PostPreview({ posts }: Props) {
   }, [posts]);
   const router = useRouter();
   return (
-    <ul id="list" className="space-y-4 ">
+    <ul id="list" className="h-[80vh] overflow-y-auto space-y-4 ">
       {posts.map((post, i) => {
         const isLast = i === posts.length - 1;
         return (
