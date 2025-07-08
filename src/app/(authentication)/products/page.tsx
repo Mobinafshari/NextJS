@@ -9,10 +9,15 @@ export type PostType = {
   body: string;
 };
 
+
+
 async function page() {
   await connection();
   const data = await fetch("https://jsonplaceholder.typicode.com/posts", {
     next: { revalidate: 60 },
+    headers: {
+      "Content-Type": "Application/json",
+    },
   });
   const posts: PostType[] = await data.json();
   return (
