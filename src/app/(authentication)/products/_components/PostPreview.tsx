@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { PostType } from "../page";
 import { useRouter } from "nextjs-toploader/app";
+import clsx from "clsx";
 
 type Props = {
   posts: PostType[];
@@ -43,10 +44,13 @@ function PostPreview({ posts }: Props) {
         const isLast = i === posts.length - 1;
         return (
           <li
-            onClick={() => router.push(`${post.userId}`)}
+            onClick={() => router.push(`products/${post.id}`)}
             key={post.id}
             ref={isLast ? lastPostRef : null}
-            className="p-4 border rounded bg-white overflow-y-auto max-h-50dvh"
+            className={clsx(
+              "p-4 border rounded bg-white overflow-y-auto max-h-50dvh cursor-pointer",
+              isLast && "mb-10"
+            )}
           >
             {post.title}
           </li>
