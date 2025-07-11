@@ -16,16 +16,14 @@ function PostPreview({ posts }: Props) {
   const [visibleCount, setVisibleCount] = useState(VISIBLE_ITEMS);
 
   useEffect(() => {
-    let element = lastPostRef.current;
-    if (!element) return;
+    const element = lastPostRef.current;
+    if (!element || visibleCount >= posts.length) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        console.log("==>", entries);
         const [entry] = entries;
         if (entry.isIntersecting) {
           setVisibleCount((prev) => prev + VISIBLE_ITEMS);
-          element = null;
           console.log("📌 Last post is visible, maybe load more posts...");
         }
       },
@@ -43,9 +41,8 @@ function PostPreview({ posts }: Props) {
         observer.unobserve(element);
       }
     };
-  }, [posts]);
+  }, [visibleCount, posts.length]);
   const router = useRouter();
-  console.log(lastPostRef.current?.innerText);
   return (
     <ul id="list" className="h-[400px] overflow-y-auto space-y-4 ">
       {posts.slice(0, visibleCount).map((post, i) => {
