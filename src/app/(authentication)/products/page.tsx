@@ -9,8 +9,6 @@ export type PostType = {
   body: string;
 };
 
-
-
 async function page() {
   await connection();
   const data = await fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -22,7 +20,7 @@ async function page() {
   const posts: PostType[] = await data.json();
   return (
     <div className="flex flex-col gap-4">
-      <Link href="/comments" className="h-dvh mb-10">
+      <Link href="/comments" className="h-20 mb-10">
         Go To Comments Page
       </Link>
       <PostPreview posts={posts} />

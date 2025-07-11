@@ -9,17 +9,23 @@ type Props = {
   posts: PostType[];
 };
 
+const VISIBLE_ITEMS = 10;
+
 function PostPreview({ posts }: Props) {
   const lastPostRef = useRef<HTMLLIElement | null>(null);
-  const [visibleCount, setVisibleCount] = useState(10);
+  const [visibleCount, setVisibleCount] = useState(VISIBLE_ITEMS);
 
   useEffect(() => {
-    if (!lastPostRef.current) return;
+    let element = lastPostRef.current;
+    if (!element) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
+        console.log("==>", entries);
         const [entry] = entries;
         if (entry.isIntersecting) {
+          setVisibleCount((prev) => prev + VISIBLE_ITEMS);
+          element = null;
           console.log("📌 Last post is visible, maybe load more posts...");
         }
       },
@@ -30,30 +36,30 @@ function PostPreview({ posts }: Props) {
       }
     );
 
-    observer.observe(lastPostRef.current);
+    observer.observe(element);
 
     return () => {
-      if (lastPostRef.current) {
-        observer.unobserve(lastPostRef.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, [posts]);
   const router = useRouter();
+  console.log(lastPostRef.current?.innerText);
   return (
-    <ul id="list" className="h-[80vh] overflow-y-auto space-y-4 ">
-      {posts.map((post, i) => {
-        const isLast = i === posts.length - 1;
+    <ul id="list" className="h-[400px] overflow-y-auto space-y-4 ">
+      {posts.slice(0, visibleCount).map((post, i) => {
+        const isLast = i === visibleCount - 1;
         return (
           <li
             onClick={() => router.push(`products/${post.id}`)}
-            key={post.id}
+            key={`${post.id}`}
             ref={isLast ? lastPostRef : null}
             className={clsx(
-              "p-4 border rounded bg-white overflow-y-auto max-h-50dvh cursor-pointer",
-              isLast && "mb-10"
+              "p-4 border rounded bg-white overflow-y-auto max-h-50dvh cursor-pointer"
             )}
           >
-            {post.title}
+            {post.title} {i}
           </li>
         );
       })}
